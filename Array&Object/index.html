@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DATA STUCTURES</title>
+</head>
+<body>
+    <h2>Client's reviews</h2>
+    <ul id="reviewsUL">
+    </ul>
+    <script src="data.js"></script>
+    <script>
+           const fullStar = `
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                <title>star</title>
+                <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.63L12,2L9.19,8.63L2,9.24L7.46,13.97L5.82,21L12,17.27Z"/>
+            </svg>`;
+            const halfStar = `
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                <title>star-half</title>
+                <path d="M12,2L9.19,8.63L2,9.24L7.46,13.97L5.82,21L12,17.27V2Z"/>
+            </svg>`;
+            const emptyStar = `
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                <title>star-outline</title>
+                <path d="M12,15.39L8.24,17.66L9.23,13.38L5.91,10.5L10.29,10.13L12,6.09L13.71,10.13L18.09,10.5L14.77,13.38L15.76,17.66L12,15.39M12,2L9.19,8.63L2,9.24L7.46,13.97L5.82,21L12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.63L12,2Z"/>
+            </svg>`;
+            function renderStars(rating) {
+                let starsHTML = '';
+                let full = Math.floor(rating);               
+                let half = rating % 1 >= 0.5 ? 1 : 0;
+                let empty = 5 - full - half;
+                return fullStar.repeat(full) + halfStar.repeat(half) + emptyStar.repeat(empty);
+            }
+            for (let idx = 0; idx < reviews.length; idx++) {
+                    let checkMark = '';
+                    if (reviews[idx].real) {
+                        checkMark = '&#10004';
+                    } else {
+                        checkMark = '';
+                    }
+                    let starsHTML = renderStars(reviews[idx].rating);
+                reviewsUL.innerHTML +=`
+                <li>
+                 <h2>${checkMark} ${reviews[idx].author}
+                 </h2>
+                 <p>${reviews[idx].body}<br>${starsHTML}</p>
+                 </li>`;   
+            }
+    </script>
+</body>
+</html>
